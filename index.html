@@ -149,7 +149,6 @@
   }
   .phone-screen img {
     width: 100%; display: block;
-    margin-top: -20px;
   }
   .phone-notch {
     position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
@@ -194,24 +193,18 @@
   /* SCREENSHOTS */
   .screenshots { padding: 80px 24px 100px; overflow: hidden; }
   .screenshots-inner {
-    display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
-    max-width: 1100px; margin: 0 auto;
+    display: flex; gap: 20px; justify-content: center;
+    max-width: 1200px; margin: 0 auto; overflow-x: auto;
+    padding: 10px 0; -webkit-overflow-scrolling: touch;
   }
   .screenshot-device {
-    width: 220px; position: relative;
+    flex: 0 0 auto; width: 200px;
     transition: transform 0.3s ease;
   }
   .screenshot-device:hover { transform: translateY(-6px); }
-  .screenshot-frame {
-    background: #1a1a1a; border-radius: 24px; padding: 8px;
+  .marketing-shot {
+    width: 100%; display: block; border-radius: 16px;
     box-shadow: 0 8px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.06);
-  }
-  .screenshot-screen {
-    border-radius: 18px; overflow: hidden;
-  }
-  .screenshot-screen img {
-    width: 100%; display: block;
-    margin-top: -20px;
   }
 
   /* SECTION HELPERS */
@@ -451,12 +444,10 @@
     .hero-badges { justify-content: center; }
     .hero-stats { justify-content: center; }
     .hero-phone { display: none; }
-    .screenshots { padding: 40px 24px 80px; }
-    .screenshots-inner { gap: 12px; }
-    .screenshot-device { width: 150px; }
-    .screenshot-frame { border-radius: 18px; padding: 6px; }
-    .screenshot-screen { border-radius: 14px; }
-    .screenshot-screen img { margin-top: -14px; }
+    .screenshots { padding: 40px 16px 60px; }
+    .screenshots-inner { gap: 12px; justify-content: flex-start; padding: 10px 0; }
+    .screenshot-device { width: 140px; }
+    .marketing-shot { border-radius: 12px; }
     .feature-grid { grid-template-columns: 1fr; }
     .features { padding: 80px 24px; }
     .how { padding: 80px 24px; }
@@ -531,7 +522,7 @@
     <div class="phone-frame">
       <div class="phone-notch"></div>
       <div class="phone-screen">
-        <img src="screenshots/2-guidance.png" alt="FishLogic guidance screen">
+        <img src="screenshots/fishlogic-screenshot-2.png" alt="FishLogic guidance screen">
       </div>
     </div>
   </div>
@@ -557,24 +548,22 @@
 <section class="screenshots fade-in">
   <div class="screenshots-inner">
     <div class="screenshot-device">
-      <div class="screenshot-frame"><div class="screenshot-screen">
-        <img src="screenshots/4-lakes.png" alt="Lake selection">
-      </div></div>
+      <img src="screenshots/fishlogic-screenshot-1.png" alt="Know Where to Fish Today" class="marketing-shot">
     </div>
     <div class="screenshot-device">
-      <div class="screenshot-frame"><div class="screenshot-screen">
-        <img src="screenshots/1-map.png" alt="Probability zone map">
-      </div></div>
+      <img src="screenshots/fishlogic-screenshot-2.png" alt="Your Personal Fishing Guide" class="marketing-shot">
     </div>
     <div class="screenshot-device">
-      <div class="screenshot-frame"><div class="screenshot-screen">
-        <img src="screenshots/2-guidance.png" alt="Daily guidance">
-      </div></div>
+      <img src="screenshots/fishlogic-screenshot-3.png" alt="Know Exactly What to Throw" class="marketing-shot">
     </div>
     <div class="screenshot-device">
-      <div class="screenshot-frame"><div class="screenshot-screen">
-        <img src="screenshots/3-lures.png" alt="Lure recommendations">
-      </div></div>
+      <img src="screenshots/fishlogic-screenshot-4.png" alt="176 Lakes Across 15 States" class="marketing-shot">
+    </div>
+    <div class="screenshot-device">
+      <img src="screenshots/fishlogic-screenshot-5.png" alt="Like Hiring a Fishing Guide" class="marketing-shot">
+    </div>
+    <div class="screenshot-device">
+      <img src="screenshots/fishlogic-screenshot-6.png" alt="5 Species Track Every Catch" class="marketing-shot">
     </div>
   </div>
 </section>
