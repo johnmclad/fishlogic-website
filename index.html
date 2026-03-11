@@ -74,15 +74,39 @@
   }
   .nav-cta:hover { background: var(--green-dark) !important; }
 
+  /* HAMBURGER */
+  .hamburger {
+    display: none; background: none; border: none; cursor: pointer;
+    padding: 4px; flex-direction: column; gap: 5px;
+  }
+  .hamburger span {
+    display: block; width: 24px; height: 2px; background: var(--text);
+    border-radius: 2px; transition: all 0.3s;
+  }
+  .mobile-menu {
+    display: none; position: fixed; top: 60px; left: 0; right: 0;
+    background: rgba(13, 31, 45, 0.98); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 24px; flex-direction: column; gap: 16px; z-index: 99;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    color: var(--text-dim); text-decoration: none; font-size: 16px;
+    font-weight: 500; padding: 8px 0;
+  }
+  .mobile-menu a:hover { color: var(--text); }
+  .mobile-menu .nav-cta {
+    display: inline-block; text-align: center; margin-top: 8px;
+  }
+
   /* HERO */
   .hero {
-    padding: 160px 24px 60px; text-align: center;
+    padding: 140px 24px 60px; text-align: center;
     max-width: 800px; margin: 0 auto;
   }
-  .hero-logo { width: 80px; height: 80px; border-radius: 18px; margin-bottom: 28px; }
   .hero h1 {
-    font-size: clamp(36px, 6vw, 56px); font-weight: 900;
-    line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 20px;
+    font-size: clamp(38px, 6vw, 60px); font-weight: 900;
+    line-height: 1.08; letter-spacing: -1.5px; margin-bottom: 20px;
   }
   .hero h1 .accent { color: var(--green); }
   .hero p {
@@ -92,9 +116,17 @@
   .store-badge { height: 52px; transition: opacity 0.2s; }
   .store-badge:hover { opacity: 0.85; }
   .hero-sub { margin-top: 36px; font-size: 14px; color: var(--text-muted); }
-  .hero-proof {
-    margin-top: 40px; font-size: 13px; color: var(--text-muted);
-    letter-spacing: 0.3px; white-space: nowrap;
+  .hero-stats {
+    margin-top: 40px; display: flex; justify-content: center; gap: 40px;
+    flex-wrap: wrap;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat-num {
+    font-size: 28px; font-weight: 800; color: var(--green);
+  }
+  .hero-stat-label {
+    font-size: 12px; color: var(--text-muted); text-transform: uppercase;
+    letter-spacing: 1px; margin-top: 2px;
   }
 
   /* SCREENSHOTS */
@@ -149,6 +181,21 @@
   .feature-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
   .feature-card p { font-size: 14px; color: var(--text-dim); line-height: 1.7; }
 
+  /* CALLOUT */
+  .callout {
+    padding: 80px 24px; text-align: center;
+  }
+  .callout-inner {
+    max-width: 640px; margin: 0 auto; padding: 48px 40px;
+    background: var(--bg-surface); border: 1px solid var(--border);
+    border-radius: 16px;
+  }
+  .callout h2 {
+    font-size: clamp(24px, 4vw, 32px); font-weight: 800;
+    margin-bottom: 14px; letter-spacing: -0.5px;
+  }
+  .callout p { font-size: 16px; color: var(--text-dim); line-height: 1.7; }
+
   /* MID CTA */
   .mid-cta { text-align: center; padding: 40px 24px 40px; }
 
@@ -164,20 +211,25 @@
   .step h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
   .step p { font-size: 15px; color: var(--text-dim); line-height: 1.7; }
 
-  /* CALLOUT */
-  .callout {
-    padding: 80px 24px; text-align: center;
+  /* STATES COVERAGE */
+  .states { padding: 80px 24px; max-width: 800px; margin: 0 auto; }
+  .states-grid {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;
+    margin-bottom: 24px;
   }
-  .callout-inner {
-    max-width: 640px; margin: 0 auto; padding: 48px 40px;
+  .state-tag {
     background: var(--bg-surface); border: 1px solid var(--border);
-    border-radius: 16px;
+    border-radius: 8px; padding: 10px 18px;
+    font-size: 14px; font-weight: 600; color: var(--text);
+    display: flex; align-items: center; gap: 6px;
+    transition: border-color 0.2s;
   }
-  .callout h2 {
-    font-size: clamp(24px, 4vw, 32px); font-weight: 800;
-    margin-bottom: 14px; letter-spacing: -0.5px;
+  .state-tag:hover { border-color: var(--green); }
+  .state-check { color: var(--green); font-size: 14px; }
+  .states-note {
+    text-align: center; font-size: 14px; color: var(--text-muted);
+    font-style: italic; margin-top: 20px;
   }
-  .callout p { font-size: 16px; color: var(--text-dim); line-height: 1.7; }
 
   /* PRICING */
   .pricing { padding: 100px 24px; max-width: 880px; margin: 0 auto; }
@@ -258,10 +310,13 @@
   .footer-copy { font-size: 13px; color: var(--text-muted); }
 
   @media (max-width: 768px) {
-    .nav-links a:not(.nav-cta) { display: none; }
-    .hero { padding: 140px 24px 48px; }
-    .hero h1 { font-size: 32px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero { padding: 120px 24px 48px; }
+    .hero h1 { font-size: 34px; }
     .hero p { font-size: 16px; }
+    .hero-stats { gap: 24px; }
+    .hero-stat-num { font-size: 24px; }
     .screenshots { padding: 40px 24px 80px; }
     .screenshots-inner { gap: 12px; }
     .screenshots-inner .screenshot-wrap { width: 150px; height: 311px; }
@@ -276,6 +331,8 @@
     .callout-inner { padding: 36px 24px; }
     .step { flex-direction: column; gap: 8px; }
     .footer-inner { flex-direction: column; text-align: center; }
+    .states { padding: 60px 24px; }
+    .state-tag { padding: 8px 14px; font-size: 13px; }
   }
 </style>
 </head>
@@ -297,18 +354,48 @@
       <a href="mailto:support@fishlogicapp.com">Support</a>
       <a href="https://apps.apple.com/app/fishlogic/id6758115326" class="nav-cta">Download</a>
     </div>
+    <button class="hamburger" onclick="document.getElementById('mobile-menu').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#features" onclick="document.getElementById('mobile-menu').classList.remove('open')">Features</a>
+  <a href="#how-it-works" onclick="document.getElementById('mobile-menu').classList.remove('open')">How It Works</a>
+  <a href="#pricing" onclick="document.getElementById('mobile-menu').classList.remove('open')">Pricing</a>
+  <a href="#faq" onclick="document.getElementById('mobile-menu').classList.remove('open')">FAQ</a>
+  <a href="https://fishlogicapp.com/privacy-policy">Privacy</a>
+  <a href="https://fishlogicapp.com/terms-of-service">Terms</a>
+  <a href="mailto:support@fishlogicapp.com">Support</a>
+  <a href="https://apps.apple.com/app/fishlogic/id6758115326" class="nav-cta">Download</a>
+</div>
+
 <section class="hero">
-  <img src="logo.png" alt="FishLogic" class="hero-logo">
   <h1>A Local Fishing <span class="accent">Guide</span><br>In Your Pocket</h1>
   <p>FishLogic tells you where to fish, how deep to target, and what lure to throw. Updated daily for your lake based on conditions and fish behavior science.</p>
   <a href="https://apps.apple.com/app/fishlogic/id6758115326">
     <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" class="store-badge">
   </a>
   <p class="hero-sub">3-day free trial included.</p>
-  <p class="hero-proof">176 lakes. 15 states. 5 species. Updated daily.</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">176</div>
+      <div class="hero-stat-label">Lakes</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">15</div>
+      <div class="hero-stat-label">States</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">5</div>
+      <div class="hero-stat-label">Species</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">Daily</div>
+      <div class="hero-stat-label">Updates</div>
+    </div>
+  </div>
 </section>
 
 <section class="screenshots">
@@ -339,13 +426,20 @@
   </div>
 </section>
 
+<section class="callout">
+  <div class="callout-inner">
+    <h2>Not a social app</h2>
+    <p>No feeds. No followers. No sharing your spots. FishLogic is a fishing tool, not a social network. Your data stays private.</p>
+  </div>
+</section>
+
 <div class="mid-cta">
   <a href="https://apps.apple.com/app/fishlogic/id6758115326">
     <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" class="store-badge">
   </a>
 </div>
 
-<section class="how" id="how-it-works">
+<section class="how bg-alt" id="how-it-works">
   <div class="section-label">How It Works</div>
   <h2 class="section-title">Science, not guesswork</h2>
   <div class="steps">
@@ -373,14 +467,30 @@
   </div>
 </section>
 
-<section class="callout bg-alt">
-  <div class="callout-inner">
-    <h2>Not a social app</h2>
-    <p>No feeds. No followers. No sharing your spots. FishLogic is a fishing tool, not a social network. Your data stays private.</p>
+<section class="states" id="states">
+  <div class="section-label">Coverage</div>
+  <h2 class="section-title">Available in 15 states</h2>
+  <div class="states-grid">
+    <div class="state-tag"><span class="state-check">&#10003;</span> Alabama</div>
+    <div class="state-tag"><span class="state-check">&#10003;</span> Arizona</div>
+    <div class="state-tag"><span class="state-check">&#10003;</span> Arkansas</div>
+    <div class="state-tag"><span class="state-check">&#10003;</span> Florida</div>
+    <div class="state-tag"><span class="state-check">&#10003;</span> Georgia</div>
+    <div class="state-tag"><span class="state-check">&#10003;</span> Indiana</div>
+    <div class="state-tag"><span class="state-check">&#10003;</span> Iowa</div>
+    <div class="state-tag"><span class="state-check">&#10003;</span> Kansas</div>
+    <div class="state-tag"><span class="state-check">&#10003;</span> Kentucky</div>
+    <div class="state-tag"><span class="state-check">&#10003;</span> Missouri</div>
+    <div class="state-tag"><span class="state-check">&#10003;</span> North Carolina</div>
+    <div class="state-tag"><span class="state-check">&#10003;</span> Ohio</div>
+    <div class="state-tag"><span class="state-check">&#10003;</span> South Carolina</div>
+    <div class="state-tag"><span class="state-check">&#10003;</span> Tennessee</div>
+    <div class="state-tag"><span class="state-check">&#10003;</span> Texas</div>
   </div>
+  <p class="states-note">More states and lakes added regularly.</p>
 </section>
 
-<section class="pricing" id="pricing">
+<section class="pricing bg-alt" id="pricing">
   <div class="section-label">Pricing</div>
   <h2 class="section-title">Less than a tank of gas</h2>
   <p>Start with a free 3-day trial. Cancel anytime.</p>
@@ -436,7 +546,7 @@
   </div>
 </section>
 
-<section class="faq bg-alt" id="faq">
+<section class="faq" id="faq">
   <div class="section-label">FAQ</div>
   <h2 class="section-title">Common Questions</h2>
   <div class="faq-item">
