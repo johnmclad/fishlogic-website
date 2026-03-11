@@ -286,15 +286,30 @@
     display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;
     margin-bottom: 24px;
   }
+  .state-item { position: relative; }
   .state-tag {
     background: var(--bg-surface); border: 1px solid var(--border);
     border-radius: 8px; padding: 10px 18px;
     font-size: 14px; font-weight: 600; color: var(--text);
     display: flex; align-items: center; gap: 6px;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s; cursor: pointer; user-select: none;
   }
   .state-tag:hover { border-color: var(--green); }
+  .state-tag .arrow { font-size: 10px; color: var(--text-muted); margin-left: 2px; transition: transform 0.2s; }
+  .state-item.open .state-tag { border-color: var(--green); background: rgba(76,175,80,0.08); }
+  .state-item.open .arrow { transform: rotate(180deg); }
   .state-check { color: var(--green); font-size: 14px; }
+  .lake-dropdown {
+    display: none; position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+    background: var(--bg-surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 12px 16px; z-index: 20; min-width: 220px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  }
+  .state-item.open .lake-dropdown { display: block; }
+  .lake-dropdown h4 { font-size: 11px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .lake-dropdown ul { list-style: none; padding: 0; margin: 0; }
+  .lake-dropdown li { font-size: 13px; color: var(--text-dim); padding: 4px 0; border-bottom: 1px solid var(--border); }
+  .lake-dropdown li:last-child { border-bottom: none; }
   .states-note {
     text-align: center; font-size: 14px; color: var(--text-muted);
     font-style: italic; margin-top: 20px;
@@ -454,6 +469,9 @@
     .footer-inner { flex-direction: column; text-align: center; }
     .states { padding: 60px 24px; }
     .state-tag { padding: 8px 14px; font-size: 13px; }
+    .lake-dropdown { position: fixed; top: auto; bottom: 0; left: 0; right: 0; transform: none;
+      border-radius: 16px 16px 0 0; max-height: 60vh; overflow-y: auto; min-width: unset;
+      box-shadow: 0 -8px 40px rgba(0,0,0,0.6); padding: 20px 24px 32px; }
     .social-proof-inner { gap: 16px; }
     .compare-table th, .compare-table td { padding: 10px 6px; font-size: 11px; }
     .compare-table td:not(:first-child) { font-size: 13px; }
@@ -698,21 +716,66 @@
   <div class="section-label">Coverage</div>
   <h2 class="section-title">Available in 15 states</h2>
   <div class="states-grid">
-    <div class="state-tag"><span class="state-check">&#10003;</span> Alabama</div>
-    <div class="state-tag"><span class="state-check">&#10003;</span> Arizona</div>
-    <div class="state-tag"><span class="state-check">&#10003;</span> Arkansas</div>
-    <div class="state-tag"><span class="state-check">&#10003;</span> Florida</div>
-    <div class="state-tag"><span class="state-check">&#10003;</span> Georgia</div>
-    <div class="state-tag"><span class="state-check">&#10003;</span> Indiana</div>
-    <div class="state-tag"><span class="state-check">&#10003;</span> Iowa</div>
-    <div class="state-tag"><span class="state-check">&#10003;</span> Kansas</div>
-    <div class="state-tag"><span class="state-check">&#10003;</span> Kentucky</div>
-    <div class="state-tag"><span class="state-check">&#10003;</span> Missouri</div>
-    <div class="state-tag"><span class="state-check">&#10003;</span> North Carolina</div>
-    <div class="state-tag"><span class="state-check">&#10003;</span> Ohio</div>
-    <div class="state-tag"><span class="state-check">&#10003;</span> South Carolina</div>
-    <div class="state-tag"><span class="state-check">&#10003;</span> Tennessee</div>
-    <div class="state-tag"><span class="state-check">&#10003;</span> Texas</div>
+    <div class="state-item" onclick="toggleState(this)">
+      <div class="state-tag"><span class="state-check">&#10003;</span> Alabama <span class="arrow">&#9660;</span></div>
+      <div class="lake-dropdown"><h4>11 Lakes</h4><ul><li>Holt Lake</li><li>Lake Guntersville</li><li>Lake Jordan</li><li>Lake Martin</li><li>Lake Mitchell</li><li>Lay Lake</li><li>Neely Henry Lake</li><li>Pickwick Lake</li><li>Smith Lake</li><li>Weiss Lake</li><li>Wheeler Lake</li></ul></div>
+    </div>
+    <div class="state-item" onclick="toggleState(this)">
+      <div class="state-tag"><span class="state-check">&#10003;</span> Arizona <span class="arrow">&#9660;</span></div>
+      <div class="lake-dropdown"><h4>8 Lakes</h4><ul><li>Alamo Lake</li><li>Apache Lake</li><li>Bartlett Lake</li><li>Canyon Lake</li><li>Lake Havasu</li><li>Lake Mohave</li><li>Roosevelt Lake</li><li>Saguaro Lake</li></ul></div>
+    </div>
+    <div class="state-item" onclick="toggleState(this)">
+      <div class="state-tag"><span class="state-check">&#10003;</span> Arkansas <span class="arrow">&#9660;</span></div>
+      <div class="lake-dropdown"><h4>10 Lakes</h4><ul><li>Beaver Lake</li><li>Bull Shoals Lake</li><li>DeGray Lake</li><li>Greers Ferry Lake</li><li>Lake Conway</li><li>Lake Dardanelle</li><li>Lake Hamilton</li><li>Lake Ouachita</li><li>Millwood Lake</li><li>Norfork Lake</li></ul></div>
+    </div>
+    <div class="state-item" onclick="toggleState(this)">
+      <div class="state-tag"><span class="state-check">&#10003;</span> Florida <span class="arrow">&#9660;</span></div>
+      <div class="lake-dropdown"><h4>6 Lakes</h4><ul><li>Lake Apopka</li><li>Lake Dora</li><li>Lake Griffin</li><li>Lake Tohopekaliga</li><li>Lake Weir</li><li>Stick Marsh</li></ul></div>
+    </div>
+    <div class="state-item" onclick="toggleState(this)">
+      <div class="state-tag"><span class="state-check">&#10003;</span> Georgia <span class="arrow">&#9660;</span></div>
+      <div class="lake-dropdown"><h4>14 Lakes</h4><ul><li>Bartletts Ferry Lake</li><li>Carters Lake</li><li>Clarks Hill Lake</li><li>Lake Allatoona</li><li>Lake Blue Ridge</li><li>Lake Burton</li><li>Lake Chatuge</li><li>Lake Hartwell</li><li>Lake Lanier</li><li>Lake Nottely</li><li>Lake Oconee</li><li>Lake Sinclair</li><li>Walter F. George Lake</li><li>West Point Lake</li></ul></div>
+    </div>
+    <div class="state-item" onclick="toggleState(this)">
+      <div class="state-tag"><span class="state-check">&#10003;</span> Indiana <span class="arrow">&#9660;</span></div>
+      <div class="lake-dropdown"><h4>5 Lakes</h4><ul><li>Cecil M. Harden Lake</li><li>Mississinewa Lake</li><li>Monroe Lake</li><li>Patoka Lake</li><li>Salamonie Lake</li></ul></div>
+    </div>
+    <div class="state-item" onclick="toggleState(this)">
+      <div class="state-tag"><span class="state-check">&#10003;</span> Iowa <span class="arrow">&#9660;</span></div>
+      <div class="lake-dropdown"><h4>8 Lakes</h4><ul><li>Big Creek Lake</li><li>Clear Lake</li><li>Coralville Reservoir</li><li>Lake Macbride</li><li>Rathbun Reservoir</li><li>Red Rock Reservoir</li><li>Saylorville Reservoir</li><li>Three Mile Lake</li></ul></div>
+    </div>
+    <div class="state-item" onclick="toggleState(this)">
+      <div class="state-tag"><span class="state-check">&#10003;</span> Kansas <span class="arrow">&#9660;</span></div>
+      <div class="lake-dropdown"><h4>10 Lakes</h4><ul><li>Cheney Reservoir</li><li>Clinton Reservoir</li><li>El Dorado Reservoir</li><li>Hillsdale Reservoir</li><li>Marion Reservoir</li><li>Melvern Reservoir</li><li>Milford Reservoir</li><li>Perry Reservoir</li><li>Tuttle Creek Reservoir</li><li>Wilson Reservoir</li></ul></div>
+    </div>
+    <div class="state-item" onclick="toggleState(this)">
+      <div class="state-tag"><span class="state-check">&#10003;</span> Kentucky <span class="arrow">&#9660;</span></div>
+      <div class="lake-dropdown"><h4>10 Lakes</h4><ul><li>Barren River Lake</li><li>Cave Run Lake</li><li>Green River Lake</li><li>Herrington Lake</li><li>Kentucky Lake</li><li>Lake Barkley</li><li>Lake Cumberland</li><li>Laurel River Lake</li><li>Nolin River Lake</li><li>Taylorsville Lake</li></ul></div>
+    </div>
+    <div class="state-item" onclick="toggleState(this)">
+      <div class="state-tag"><span class="state-check">&#10003;</span> Missouri <span class="arrow">&#9660;</span></div>
+      <div class="lake-dropdown"><h4>8 Lakes</h4><ul><li>Lake of the Ozarks</li><li>Mark Twain Lake</li><li>Pomme de Terre Lake</li><li>Smithville Lake</li><li>Stockton Lake</li><li>Table Rock Lake</li><li>Truman Lake</li><li>Wappapello Lake</li></ul></div>
+    </div>
+    <div class="state-item" onclick="toggleState(this)">
+      <div class="state-tag"><span class="state-check">&#10003;</span> North Carolina <span class="arrow">&#9660;</span></div>
+      <div class="lake-dropdown"><h4>20 Lakes</h4><ul><li>Badin Lake</li><li>Blewett Falls Lake</li><li>Chatuge Lake</li><li>Falls Lake</li><li>Fontana Lake</li><li>High Rock Lake</li><li>Hiwassee Reservoir</li><li>Hyco Lake</li><li>Jordan Lake</li><li>Lake Hickory</li><li>Lake James</li><li>Lake Norman</li><li>Lake Rhodhiss</li><li>Lake Tillery</li><li>Mayo Lake</li><li>Mountain Island Lake</li><li>Randleman Reservoir</li><li>Santeetlah Lake</li><li>Shearon Harris Lake</li><li>Tuckertown Reservoir</li></ul></div>
+    </div>
+    <div class="state-item" onclick="toggleState(this)">
+      <div class="state-tag"><span class="state-check">&#10003;</span> Ohio <span class="arrow">&#9660;</span></div>
+      <div class="lake-dropdown"><h4>15 Lakes</h4><ul><li>Atwood Lake</li><li>Berlin Lake</li><li>Caesar Creek Lake</li><li>C.J. Brown Reservoir</li><li>Grand Lake St. Marys</li><li>LaDue Reservoir</li><li>Lake Milton</li><li>Mosquito Lake</li><li>Piedmont Lake</li><li>Pymatuning Lake</li><li>Rocky Fork Lake</li><li>Salt Fork Lake</li><li>Seneca Lake</li><li>Tappan Lake</li><li>West Branch Reservoir</li></ul></div>
+    </div>
+    <div class="state-item" onclick="toggleState(this)">
+      <div class="state-tag"><span class="state-check">&#10003;</span> South Carolina <span class="arrow">&#9660;</span></div>
+      <div class="lake-dropdown"><h4>9 Lakes</h4><ul><li>Lake Greenwood</li><li>Lake Keowee</li><li>Lake Marion</li><li>Lake Moultrie</li><li>Lake Murray</li><li>Lake Russell</li><li>Lake Wateree</li><li>Lake Wylie</li><li>Santee Cooper</li></ul></div>
+    </div>
+    <div class="state-item" onclick="toggleState(this)">
+      <div class="state-tag"><span class="state-check">&#10003;</span> Tennessee <span class="arrow">&#9660;</span></div>
+      <div class="lake-dropdown"><h4>20 Lakes</h4><ul><li>Barkley Reservoir</li><li>Boone Reservoir</li><li>Center Hill Lake</li><li>Cherokee Reservoir</li><li>Chickamauga Lake</li><li>Cordell Hull Reservoir</li><li>Dale Hollow Lake</li><li>Douglas Reservoir</li><li>J. Percy Priest Reservoir</li><li>Nickajack Reservoir</li><li>Normandy Reservoir</li><li>Norris Lake</li><li>Old Hickory Reservoir</li><li>Parksville Lake</li><li>Pickwick Reservoir</li><li>South Holston Reservoir</li><li>Tims Ford Reservoir</li><li>Watauga Lake</li><li>Watts Bar Reservoir</li><li>Woods Reservoir</li></ul></div>
+    </div>
+    <div class="state-item" onclick="toggleState(this)">
+      <div class="state-tag"><span class="state-check">&#10003;</span> Texas <span class="arrow">&#9660;</span></div>
+      <div class="lake-dropdown"><h4>23 Lakes</h4><ul><li>Belton Lake</li><li>Canyon Lake</li><li>Granger Lake</li><li>Lake Arrowhead</li><li>Lake Bob Sandlin</li><li>Lake Brownwood</li><li>Lake Buchanan</li><li>Lake Conroe</li><li>Lake Cypress Springs</li><li>Lake Fork</li><li>Lake Granbury</li><li>Lake Livingston</li><li>Lake O' the Pines</li><li>Lake Somerville</li><li>Lake Texana</li><li>Lake Waco</li><li>Lake Whitney</li><li>Possum Kingdom Lake</li><li>Proctor Lake</li><li>Sam Rayburn</li><li>Stillhouse Hollow Lake</li><li>Toledo Bend</li><li>Wright Patman Lake</li></ul></div>
+    </div>
   </div>
   <p class="states-note">More states and lakes added regularly.</p>
 </section>
@@ -845,6 +908,18 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// State lake dropdowns
+function toggleState(el) {
+  const wasOpen = el.classList.contains('open');
+  document.querySelectorAll('.state-item.open').forEach(s => s.classList.remove('open'));
+  if (!wasOpen) el.classList.add('open');
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.state-item')) {
+    document.querySelectorAll('.state-item.open').forEach(s => s.classList.remove('open'));
+  }
+});
 </script>
 
 </body>
