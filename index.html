@@ -301,21 +301,30 @@
   }
 
   /* COMPARISON */
-  .comparison { padding: 80px 24px; max-width: 700px; margin: 0 auto; }
+  .comparison { padding: 80px 24px; max-width: 860px; margin: 0 auto; }
   .compare-table { width: 100%; border-collapse: collapse; }
   .compare-table th {
-    text-align: left; padding: 14px 16px; font-size: 14px; font-weight: 700;
+    text-align: left; padding: 14px 12px; font-size: 13px; font-weight: 700;
     color: var(--text); border-bottom: 2px solid var(--border);
   }
   .compare-table th:not(:first-child) { text-align: center; }
   .compare-table td {
-    padding: 14px 16px; font-size: 14px; color: var(--text-dim);
+    padding: 14px 12px; font-size: 14px; color: var(--text-dim);
     border-bottom: 1px solid var(--border);
   }
+  .compare-table td:first-child { font-weight: 500; color: var(--text); }
   .compare-table td:not(:first-child) { text-align: center; font-size: 16px; }
-  .compare-table .check { color: var(--green); }
-  .compare-table .x { color: var(--text-muted); opacity: 0.5; }
-  .compare-highlight { color: var(--green); font-weight: 700; }
+  .compare-table .check { color: var(--green); font-weight: 700; }
+  .compare-table .x { color: var(--text-muted); opacity: 0.4; }
+  .compare-table .meh { color: #f5a623; font-weight: 600; }
+  .compare-table .neutral { color: var(--text-dim); font-size: 13px; font-weight: 500; }
+  .compare-table .cost-highlight {
+    color: var(--green); font-weight: 800; font-size: 14px;
+  }
+  .compare-highlight {
+    color: var(--green) !important; font-weight: 700;
+    background: rgba(76, 175, 80, 0.08); border-radius: 4px;
+  }
 
   /* PRICING */
   .pricing { padding: 100px 24px; max-width: 880px; margin: 0 auto; }
@@ -450,8 +459,10 @@
     .states { padding: 60px 24px; }
     .state-tag { padding: 8px 14px; font-size: 13px; }
     .social-proof-inner { gap: 16px; }
-    .compare-table th, .compare-table td { padding: 10px 8px; font-size: 13px; }
-    .comparison { padding: 60px 24px; }
+    .compare-table th, .compare-table td { padding: 10px 6px; font-size: 11px; }
+    .compare-table td:not(:first-child) { font-size: 13px; }
+    .compare-table .neutral, .compare-table .cost-highlight { font-size: 11px; }
+    .comparison { padding: 60px 12px; overflow-x: auto; }
   }
 </style>
 </head>
@@ -622,52 +633,66 @@
 
 <section class="comparison fade-in">
   <div class="section-label">Why FishLogic</div>
-  <h2 class="section-title">More than a forecast app</h2>
+  <h2 class="section-title">What anglers do today vs. FishLogic</h2>
   <table class="compare-table">
     <thead>
       <tr>
-        <th>Feature</th>
+        <th></th>
+        <th>Googling fishing reports</th>
+        <th>Asking at the tackle shop</th>
+        <th>Hiring a guide</th>
         <th class="compare-highlight">FishLogic</th>
-        <th>Weather Apps</th>
-        <th>Social Apps</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>Where to fish</td>
+        <td>Tells you where to fish today</td>
+        <td class="x">&#10005;</td>
+        <td class="meh">~</td>
         <td class="check">&#10003;</td>
-        <td class="x">&#10005;</td>
-        <td class="x">&#10005;</td>
+        <td class="check">&#10003;</td>
       </tr>
       <tr>
-        <td>Depth recommendations</td>
+        <td>Specific depth &amp; structure</td>
+        <td class="x">&#10005;</td>
+        <td class="x">&#10005;</td>
         <td class="check">&#10003;</td>
-        <td class="x">&#10005;</td>
-        <td class="x">&#10005;</td>
+        <td class="check">&#10003;</td>
       </tr>
       <tr>
-        <td>Specific lure picks</td>
+        <td>Exact lure, color &amp; retrieve</td>
+        <td class="x">&#10005;</td>
+        <td class="meh">~</td>
         <td class="check">&#10003;</td>
-        <td class="x">&#10005;</td>
-        <td class="x">&#10005;</td>
+        <td class="check">&#10003;</td>
       </tr>
       <tr>
-        <td>AI-powered guidance</td>
+        <td>Updated daily for conditions</td>
+        <td class="x">&#10005;</td>
+        <td class="x">&#10005;</td>
+        <td class="x">&#10005;</td>
         <td class="check">&#10003;</td>
-        <td class="x">&#10005;</td>
-        <td class="x">&#10005;</td>
       </tr>
       <tr>
-        <td>Privacy (no social)</td>
-        <td class="check">&#10003;</td>
-        <td class="check">&#10003;</td>
+        <td>Covers 176 lakes</td>
         <td class="x">&#10005;</td>
+        <td class="x">&#10005;</td>
+        <td class="x">&#10005;</td>
+        <td class="check">&#10003;</td>
       </tr>
       <tr>
-        <td>Daily updates</td>
-        <td class="check">&#10003;</td>
-        <td class="check">&#10003;</td>
+        <td>Available at 6 AM every morning</td>
         <td class="x">&#10005;</td>
+        <td class="x">&#10005;</td>
+        <td class="x">&#10005;</td>
+        <td class="check">&#10003;</td>
+      </tr>
+      <tr>
+        <td>Cost</td>
+        <td class="neutral">Free</td>
+        <td class="neutral">Free</td>
+        <td class="neutral">$300&#8211;500/day</td>
+        <td class="cost-highlight">$2.50/mo</td>
       </tr>
     </tbody>
   </table>
