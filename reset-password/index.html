@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Reset Your Password — FishLogic</title>
+<!--
+  Password-reset handoff page.
+
+  Supabase 303s the browser to whatever `redirect_to` the client asked for.
+  That used to be `fishlogic://reset-password` directly, and a browser that
+  cannot open a custom scheme — Gmail's in-app webview, any desktop browser, or
+  a phone without the app installed — simply DISPLAYS the URL instead. The user
+  saw several hundred characters of raw JWT, which looks broken and leaves an
+  access token on screen to be screenshotted.
+
+  So Supabase now redirects here, over https, and this page forwards the
+  fragment on to the app. Everything after `#` never leaves the browser, so the
+  tokens are not sent to GitHub Pages or anywhere else — they are only handed
+  to the app's own URL scheme.
+-->
+<style>
+  :root { --bg:#0D1F2D; --panel:#143041; --line:#1E4455; --green:#4CAF50; --text:#E8F1F5; --muted:#8FA9B8; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text);
+         font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+         display:flex; align-items:center; justify-content:center; min-height:100vh; padding:24px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:14px;
+          padding:32px 28px; max-width:420px; width:100%; text-align:center; }
+  h1 { font-size:21px; margin:0 0 10px; }
+  p { color:var(--muted); font-size:15px; line-height:1.55; margin:0 0 20px; }
+  .btn { display:inline-block; background:var(--green); color:#fff; font-size:16px; font-weight:600;
+         text-decoration:none; padding:14px 34px; border-radius:8px; border:0; cursor:pointer; }
+  .sub { font-size:13px; color:var(--muted); margin-top:18px; }
+  .hide { display:none; }
+  .err h1 { color:#E57373; }
+</style>
+</head>
+<body>
+  <div class="card" id="card">
+    <h1 id="title">Opening FishLogic…</h1>
+    <p id="msg">If the app doesn’t open automatically, tap the button below.</p>
+    <a class="btn" id="go" href="#">Open FishLogic</a>
+    <p class="sub" id="sub">Make sure FishLogic is installed on this device.</p>
+  </div>
+<script>
+(function () {
+  var hash = window.location.hash || '';
+  var card = document.getElementById('card');
+  var title = document.getElementById('title');
+  var msg = document.getElementById('msg');
+  var go = document.getElementById('go');
+  var sub = document.getElementById('sub');
+
+  function params(h) {
+    var out = {};
+    h.replace(/^#/, '').split('&').forEach(function (pair) {
+      if (!pair) return;
+      var i = pair.indexOf('=');
+      if (i === -1) return;
+      out[decodeURIComponent(pair.slice(0, i))] = decodeURIComponent(pair.slice(i + 1));
+    });
+    return out;
+  }
+
+  var p = params(hash);
+
+  // Supabase reports a dead link as error=... in the same fragment. Say so in
+  // plain words rather than forwarding a failure into the app.
+  if (p.error || p.error_code) {
+    card.className = 'card err';
+    title.textContent = 'This link has expired';
+    msg.textContent = 'Password reset links are valid for one hour and can only be used once. '
+                    + 'Open FishLogic and request a new one.';
+    go.className = 'btn hide';
+    sub.textContent = '';
+    return;
+  }
+
+  if (!p.access_token) {
+    card.className = 'card err';
+    title.textContent = 'Something went wrong';
+    msg.textContent = 'This reset link is incomplete. Open FishLogic and request a new one.';
+    go.className = 'btn hide';
+    sub.textContent = '';
+    return;
+  }
+
+  // Hand the fragment to the app untouched.
+  var target = 'fishlogic://reset-password' + hash;
+  go.setAttribute('href', target);
+
+  // Try automatically. If the app is not installed nothing happens and the
+  // button stays, which is the whole point of this page existing.
+  window.location.href = target;
+
+  setTimeout(function () {
+    title.textContent = 'Open FishLogic to continue';
+    msg.textContent = 'Tap the button below to finish resetting your password.';
+  }, 1500);
+})();
+</script>
+</body>
+</html>
